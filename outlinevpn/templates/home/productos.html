@@ -1,0 +1,35 @@
+<!-- head para PC -->
+{% extends "base.html" %}
+{% load  static %}
+
+{% block title %}Outline Server: Servicios{% endblock title %}
+
+
+{% block content %}
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column py-3">
+      {% include "includes/header.html" %}
+      <div class="row">
+        <div class="col-sm-12 text-center">
+            <h1 class="h1dregra">Servicios que Ofertamos</h1>
+        </div>
+        {% for object in object_list %}
+          <div class="col-sm-6 text-center" style="padding-top: 1em;">
+            <div class="card h-100 shadow-sm border-primary" style="border-radius: 0.8rem; opacity: 0.80;">
+              <h4 class="card-header text-bg-primary border-primary">{{object.title}}</h4>
+              <div class="card-body">
+                  <h1 class="card-title pricing-card-title">${{object.precio}}<small class="text-muted fw-light">/3 meses</small></h1>
+                  
+                  <ul class="list-unstyled mt-3 mb-4">
+                    {{object.descripcion|safe}}
+                  </ul>
+              </div>
+              <div class="card-footer"><a href="https://t.me/Wachu985" class="btn btn-primary">Comprar</a></div>
+          </div>
+        </div>
+        {% endfor %}
+      
+    </div>
+      
+      {% include "includes/footer.html" %}
+    </div> 
+{% endblock content %}

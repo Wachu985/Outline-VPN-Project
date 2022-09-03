@@ -1,0 +1,103 @@
+<!-- head para PC -->
+{% extends "base.html" %}
+{% load  static %}
+
+{% block css %}
+<link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock css %}
+{% block title %}Outline Server: Detalle {{object.name}}{% endblock title %}
+
+{% block content %}
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-5">
+            <div>
+              <h3 class="float-md-start mb-0 text-white gradiente">Outline Server</h3>
+              <nav class="nav nav-masthead justify-content-center float-md-end">        
+                {% if request.get_full_path == '/' %}
+                  <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="{% url 'home_app:home' %}">Inicio</a>
+                {% else %}
+                    <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="{% url 'home_app:home' %}">Inicio</a>
+                {% endif %}            
+    
+                  
+                <a class="nav-link fw-bold py-1 px-0" href="{% url 'home_app:productos' %}">Servicios</a>
+                <a class="nav-link fw-bold py-1 px-0" href="{% url 'home_app:faq' %}">FAQ</a>
+                
+                {% if not user.is_anonymous  %}
+                  {% if '/panel/' in request.get_full_path %}
+                    <a class="nav-link fw-bold py-1 px-0 active" href="{% url 'user_app:user_panel' %}">Panel</a>
+                  {% else %}
+                    <a class="nav-link fw-bold py-1 px-0" href="{% url 'user_app:user_panel' %}">Panel</a>
+                  {% endif %}
+                {% else %}
+                  {% if '/login/' in request.get_full_path %}
+                    <a class="nav-link fw-bold py-1 px-0 active" href="{% url 'user_app:user_login' %}">Login</a>
+                  {% else %}
+                    <a class="nav-link fw-bold py-1 px-0" href="{% url 'user_app:user_login' %}">Login</a>
+                  {% endif %}
+                {% endif %}  
+              </nav>
+            </div>
+        </header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                            <h1 class="h1dregra">Clave de : {{object.name.upper}}</h1>
+                    </div>
+                    <div class="col-12 col-md-12 textshadow">
+                        <div class="row text-center text-white" style="padding-top: 5em;">
+                            <div class="col-12 col-md-4" >
+                                <h3>{{object.used_bytes}} {{object.size}}</h3>
+                                <span>Consumo Actual</span>
+                            </div>
+                            <div class="col-12 col-md-4" >
+                                <h3>{{object.limit_data}} GB</h3>
+                                <span>Consumo Limite</span>
+                            </div>
+                            <div class="col-12 col-md-4" >
+                                <h3>{{object.server.server_name}}</h3>
+                                <span>Servidor</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12" style="padding-top: 1em;">
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Access Url</button>
+                    </div> 
+                    <div class="col-12 col-md-12" style="padding-top: 1em;">
+                        <a class="btn btn-success" href="{% url 'ovpn_app:change_cuota' object.id %}">Cambiar Cuota</a>
+                        <a class="btn btn-primary" href="{% url 'ovpn_app:rename_key' object.id %}">Cambiar Nombre</a>
+                    </div> 
+                    <div class="col-12 col-md-12" style="padding-top: 1em;">
+                      <a class="btn btn-danger" href="{% url 'ovpn_app:delete_key' object.id %}">Eliminar Clave</a>
+                    </div> 
+
+                </div>
+            </div>
+        {% include "includes/footer.html" %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Access Url</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="textArea">{{object.access_url}}</p>
+                <div id="copiado" class="alert alert-primary" role="alert" style="display: none;">
+                  Texto Copiado al Portapapeles
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick=copiar()>Copiar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% endblock content %}
+{% block js %}<script src="{% static 'js/panel.js' %}"></script>{% endblock js %}

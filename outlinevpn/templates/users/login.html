@@ -1,0 +1,46 @@
+<!-- head para PC -->
+{% extends "base.html" %}
+{% load  static %}
+
+{% block css %}
+<link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock css %}
+{% block title %}Outline Server: Login{% endblock title %}
+
+{% block content %}
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        {% include "includes/header.html" %}
+        <main class="form-signin w-100 m-auto">
+            <form method="POST" class="was-validated" enctype="multipart/form-data">{% csrf_token %}
+                <img class="mb-4" src="{% static 'img/vpnicon.png' %}" alt="" width="70" height="60">
+                <h1 class="h3 mb-3 h1dregra">Inicio de Sesión</h1>
+            
+                <div class="form-floating" style="opacity: 0.65;">
+                    {{form.username}}
+                    <label for="floatingInput">Nombre</label>
+                </div>
+                <div class="form-floating" style="opacity: 0.65;">
+                    {{form.password}}
+                    <label for="floatingPassword">Contraseña</label>
+                    {% for e in form.password.errors %}
+                        <div class="invalid-feedback">
+                            {{e}}
+                        </div>
+                    {% endfor %}
+                </div>
+            
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Recordar Usuario
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
+            </form>
+        </main>
+    {% include "includes/footer.html" %}
+    </div>
+
+
+
+{% endblock content %}

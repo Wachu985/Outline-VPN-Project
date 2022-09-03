@@ -1,0 +1,39 @@
+<!-- head para PC -->
+{% extends "base.html" %}
+{% load  static %}
+
+{% block css %}
+<link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock css %}
+{% block title %}Outline Server: Crear Servidor{% endblock title %}
+
+{% block content %}
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        {% include "includes/header.html" %}
+        <main class="form-signin w-100 m-auto">
+            <form method="POST" class="was-validated" enctype="multipart/form-data">{% csrf_token %}
+                <img class="mb-4" src="{% static 'img/vpnicon.png' %}" alt="" width="70" height="60">
+                <h1 class="h3 mb-3 h1dregra">Crear Servidor</h1>
+            
+                <div class="form-floating" style="opacity: 0.65;">
+                    {{form.api_url}}
+                    <label for="floatingInput">API URL</label>
+                </div>
+                <div class="form-floating" style="opacity: 0.65;">
+                    {{form.server_name}} 
+                    <label for="floatingInput">Nombre del Servidor</label>                       
+                </div>
+                <div class="form-floating" style="opacity: 0.65;">
+                    {{form.limit_bytes}}
+                    <label for="floatingInput">Tranferencia del Servidor</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Crear Servidor</button>
+            </form>
+        </main>
+    {% include "includes/footer.html" %}
+    </div>
+
+
+
+{% endblock content %}

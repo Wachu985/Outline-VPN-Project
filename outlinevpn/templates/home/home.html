@@ -1,0 +1,19 @@
+<!-- head para PC -->
+{% extends "base.html" %}
+{% load  static %}
+{% block title %}Outline Server{% endblock title %}
+
+
+{% block content %}
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      {% include "includes/header.html" %}
+      <main class="px-3 text-white">
+        <h1 class="h1dregra">{{presentacion.title}}</h1>
+        <p class="lead textshadow">{{presentacion.cuerpo}}</p>
+        <p class="lead">
+          <a href="{% url 'home_app:faq' %}" class="text-white btn btn-lg btn-outline-secondary fw-bold border-white ">{{presentacion.btn}}</a>
+        </p>
+      </main>
+      {% include "includes/footer.html" %}
+    </div> 
+{% endblock content %}

@@ -1,0 +1,27 @@
+<!-- head para PC -->
+{% extends "base.html" %}
+{% load  static %}
+
+{% block css %}
+{% endblock css %}
+{% block title %}Outline Server: Borrar Server{% endblock title %}
+
+{% block content %}
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        {% include "includes/header.html" %}
+            <div class="card" style="background-color: transparent;backdrop-filter: blur(2px);">
+                <div class="card-body">
+                    <h4 class="text-white">¿Seguro que Deseas Eliminar el Servidor?</h4>
+                    <form method="POST">{% csrf_token %}
+                        <a class="btn btn-success" href="{% url 'ovpn_app:list_server' %}">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        {% include "includes/footer.html" %}
+    </div>
+
+
+
+{% endblock content %}

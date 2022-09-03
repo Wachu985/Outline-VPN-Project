@@ -1,0 +1,29 @@
+<!-- head para PC -->
+{% extends "base.html" %}
+{% load  static %}
+{% block title %}Outline Server{% endblock title %}
+
+
+{% block content %}
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      {% include "includes/header.html" %}
+        <h1 class="h1dregra">Preguntas Frecuentes</h1>
+        {% for object in object_list %}
+          <div class="accordion" id="accordionPanelsStayOpenExample" >
+            <div class="accordion-item" style="background-color: transparent;backdrop-filter: blur(2px);">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button collapsed" style="opacity: 0.55;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne{{object.id}}" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne{{object.id}}">
+                  {{object.pregunta}}
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne{{object.id}}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body text-white">
+                  {{object.respuesta | safe}}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% include "includes/footer.html" %}
+    </div> 
+{% endblock content %}
